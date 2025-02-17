@@ -4,3 +4,4 @@
 - [Atelier 06](atelier-06/readme.md)
 - [Atelier 07](atelier-07/readme.md)
 - [Atelier 10](atelier-10/readme.md)
+- [Atelier 12](atelier-12/readme.md)
