@@ -6,10 +6,12 @@
 ---  # kernel.yml
 
 - hosts: all
+  gather_facts: false
 
   tasks:
     - name: "Afficher les infos du noyau"
       command: uname -a
+      change_when: false
       register: kernel_info
 
     - name: "Afficher les infos du noyau"
@@ -33,9 +35,9 @@ ansible-playbook playbooks/kernel.yml
     ok: [suse]
 
     TASK [Afficher les infos du noyau] ***********************************************************************************************************************************************************
-    changed: [debian]
-    changed: [suse]
-    changed: [rocky]
+    ok: [debian]
+    ok: [suse]
+    ok: [rocky]
 
     TASK [Afficher les infos du noyau] ***********************************************************************************************************************************************************
     ok: [rocky] => {
@@ -49,9 +51,9 @@ ansible-playbook playbooks/kernel.yml
     }
 
     PLAY RECAP ***********************************************************************************************************************************************************************************
-    debian                     : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-    rocky                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-    suse                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    debian                     : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    rocky                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    suse                       : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 </details>
 
@@ -61,10 +63,12 @@ Essayez d’obtenir le même résultat en utilisant le paramètre var du module 
 ---  # kernel2.yml
 
 - hosts: all
+  gather_facts: false
 
   tasks:
     - name: "Afficher les infos du noyau"
       command: uname -a
+      change_when: false
       register: kernel_info
 
     - name: "Afficher les infos du noyau"
@@ -88,9 +92,9 @@ ansible-playbook playbooks/kernel2.yml
     ok: [rocky]
 
     TASK [Afficher les infos du noyau] ***********************************************************************************************************************************************************
-    changed: [debian]
-    changed: [suse]
-    changed: [rocky]
+    ok: [debian]
+    ok: [suse]
+    ok: [rocky]
 
     TASK [Afficher les infos du noyau] ***********************************************************************************************************************************************************
     ok: [rocky] => {
@@ -104,9 +108,9 @@ ansible-playbook playbooks/kernel2.yml
     }
 
     PLAY RECAP ***********************************************************************************************************************************************************************************
-    debian                     : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-    rocky                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-    suse                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    debian                     : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    rocky                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    suse                       : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 </details>
 
 ## packages.yml
@@ -114,11 +118,13 @@ ansible-playbook playbooks/kernel2.yml
 ```yaml
 ---  # packages.yml
 
-- hosts: rocky:suse
+- hosts: rocky, suse
+  gather_facts: false
 
   tasks:
     - name: "Afficher le nombre de paquets RPM installés"
       shell: rpm -qa | wc -l
+      change_when: false
       register: rpm_count
 
     - name: "Afficher le nombre de paquets RPM installés"
@@ -134,15 +140,15 @@ ansible-playbook playbooks/packages.yml
 <details>
     <summary>Résultat</summary>
     
-    PLAY [rocky:suse] ****************************************************************************************************************************************************************************
+    PLAY [rocky,suse] ****************************************************************************************************************************************************************************
 
     TASK [Gathering Facts] ***********************************************************************************************************************************************************************
     ok: [suse]
     ok: [rocky]
 
     TASK [Afficher le nombre de paquets RPM installés] *******************************************************************************************************************************************
-    changed: [rocky]
-    changed: [suse]
+    ok: [rocky]
+    ok: [suse]
 
     TASK [Afficher le nombre de paquets RPM installés] *******************************************************************************************************************************************
     ok: [rocky] => {
@@ -153,6 +159,6 @@ ansible-playbook playbooks/packages.yml
     }
 
     PLAY RECAP ***********************************************************************************************************************************************************************************
-    rocky                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-    suse                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    rocky                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    suse                       : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 </details>
