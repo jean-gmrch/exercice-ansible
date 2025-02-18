@@ -1,7 +1,7 @@
 # Exercice
 
 ## myvars1.yml
-
+Écrivez un playbook myvars1.yml qui affiche respectivement votre voiture et votre moto préférée en utilisant le module debug et deux variables mycar et mybike définies en tant que play vars.
 ```yaml
 ---  # myvars1.yml
 
@@ -18,6 +18,10 @@
 ...
 ```
 
+### Execution du playbook
+```bash
+ansible-playbook myvars1.yml
+```
 <details>
     <summary>Résultat</summary>
 
@@ -37,11 +41,10 @@
 </details>
 
 ## utilisation des extra vars
-
+En utilisant les extra vars, remplacez successivement l’une et l’autre marque – puis les deux à la fois – avant d’exécuter le play.
 ```bash
 ansible-playbook myvars1.yml -e mycar=Renault -e mybike=Kawasaki
 ```
-
 <details>
     <summary>Résultat</summary>
 
@@ -60,6 +63,7 @@ ansible-playbook myvars1.yml -e mycar=Renault -e mybike=Kawasaki
 </details>
 
 ## myvars2.yml
+Écrivez un playbook myvars2.yml qui fait essentiellement la même chose que myvars1.yml, mais en utilisant une tâche avec set_fact pour définir les deux variables.
 ```yaml
 ---  # myvars2yml
 
@@ -89,6 +93,7 @@ ansible-playbook myvars1.yml -e mycar=Renault -e mybike=Kawasaki
         msg: "Ma voiture préférée est {{ mycar }} et ma moto préférée est {{ mybike }}"
 ...
 ```
+### Execution du playbook
 ```bash
 ansible-playbook myvars2.yml -e mycar=Renault
 ```
@@ -114,6 +119,7 @@ ansible-playbook myvars2.yml -e mycar=Renault
 </details>
 
 ## myvars3.yml
+Écrivez un playbook myvars3.yml qui affiche le contenu des deux variables mycar et mybike mais sans les définir. Avant d’exécuter le playbook, définissez VW et BMW comme valeurs par défaut pour mycar et mybike pour tous les hôtes, en utilisant l’endroit approprié.
 ```yaml
 ---  # myvars3.yml
 
@@ -138,6 +144,7 @@ mybike: BMW
 
 ...
 ```
+### Execution du playbook
 ```bash
 ansible-playbook playbooks/myvars3.yml
 ```
@@ -158,6 +165,8 @@ ansible-playbook playbooks/myvars3.yml
     localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 </details>
 
+## target02
+Effectuez le nécessaire pour remplacer VW et BMW par Mercedes et Honda sur l’hôte target02.
 ```bash
 mkdir host_vars
 vim host_vars/target02.yml
@@ -170,6 +179,7 @@ mybike: Honda
 
 ...
 ```
+### Execution du playbook
 ```bash
 ansible-playbook playbooks/myvars3.yml
 ```
@@ -191,6 +201,7 @@ ansible-playbook playbooks/myvars3.yml
 </details>
 
 ## display_user.yml
+Écrivez un playbook display_user.yml qui affiche un utilisateur et son mot de passe correspondant à l’aide des variables user et password. Ces deux variables devront être saisies de manière interactive pendant l’exécution du playbook. Les valeurs par défaut seront microlinux pour user et yatahongaga pour password. Le mot de passe ne devra pas s’afficher pendant la saisie.
 ```yaml
 ---  # diplay_user.yml
 
@@ -212,6 +223,10 @@ ansible-playbook playbooks/myvars3.yml
         msg: "User: {{ user }}, Password: {{ password }}"
         
 ...
+```
+### Execution du playbook
+```bash
+ansible-playbook playbooks/display_user.yml
 ```
 <details>
     <summary>Résultat</summary>
